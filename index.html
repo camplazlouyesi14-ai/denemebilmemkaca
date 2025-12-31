@@ -41,10 +41,14 @@ h1 { font-size: 2.2rem; margin-bottom: 10px; }
 h2 { font-weight: 300; opacity: 0.9; margin-bottom: 20px; }
 
 /* APPA FOTOĞRAFI */
-.appa-container { position: relative; height: 250px; margin: 20px 0; }
+.appa-container { 
+    position: relative; 
+    height: 300px; /* biraz aşağı çekmek için yüksekliği artırdım */
+    margin: 20px 0; 
+}
 .appa {
     position: absolute;
-    top: 50%;
+    top: 60%; /* Appayı biraz aşağıya aldık */
     left: 50%;
     transform: translate(-50%, -50%);
     width: 250px;
@@ -54,14 +58,15 @@ h2 { font-weight: 300; opacity: 0.9; margin-bottom: 20px; }
 
 @keyframes float {
     0% { transform: translate(-50%, -50%) scale(1); }
-    50% { transform: translate(-50%, -60%) scale(1.05); }
+    50% { transform: translate(-50%, -55%) scale(1.05); }
     100% { transform: translate(-50%, -50%) scale(1); }
 }
 
 .elements { display: flex; justify-content: center; gap: 15px; margin: 25px 0; flex-wrap: wrap; }
 
+/* ELEMENTLER */
 .element {
-    background: rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.25); /* daha belirgin, yarı şeffaf */
     padding: 12px 18px;
     border-radius: 12px;
     font-size: 1.1rem;
@@ -71,7 +76,10 @@ h2 { font-weight: 300; opacity: 0.9; margin-bottom: 20px; }
     z-index: 10;
 }
 
-.element:hover { transform: scale(1.1); background: rgba(255,255,255,0.25); }
+.element:hover {
+    transform: scale(1.1);
+    background: rgba(255,255,255,0.4);
+}
 
 .message {
     max-width: 90%;
@@ -84,7 +92,14 @@ h2 { font-weight: 300; opacity: 0.9; margin-bottom: 20px; }
 
 .message p { line-height: 1.5; }
 
-footer { margin-top: 30px; padding: 15px; font-size: 0.85rem; opacity: 0.7; }
+/* FOOTER */
+footer { 
+    margin-top: 30px; 
+    padding: 15px; 
+    font-size: 0.85rem; 
+    font-weight: bold; 
+    color: black; 
+}
 
 @media (max-width: 600px) {
     h1 { font-size: 1.6rem; }
@@ -193,30 +208,25 @@ const panels = {
     earth: document.getElementById('photoEarth')
 };
 
-// Açma fonksiyonu (fade-in)
 function openPanel(panel) {
     panel.style.display = 'block';
     setTimeout(() => { panel.classList.add('fade-in'); }, 10);
 }
 
-// Kapatma fonksiyonu
 function closePanel(panel) {
     panel.classList.remove('fade-in');
     setTimeout(() => { panel.style.display = 'none'; }, 400);
 }
 
-// Element tıklamaları
 document.getElementById('water').onclick = () => openPanel(panels.water);
 document.getElementById('fire').onclick = () => openPanel(panels.fire);
 document.getElementById('air').onclick = () => openPanel(panels.air);
 document.getElementById('earth').onclick = () => openPanel(panels.earth);
 
-// Kapatma butonları
 document.querySelectorAll('.closePhoto').forEach(btn => {
     btn.onclick = () => closePanel(btn.parentElement);
 });
 
-// Panel dışına tıklayınca kapatma
 window.onclick = (e) => {
     for (let key in panels) {
         if(e.target == panels[key]) closePanel(panels[key]);
