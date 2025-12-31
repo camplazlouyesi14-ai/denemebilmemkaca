@@ -84,6 +84,13 @@
             padding: 12px 18px;
             border-radius: 12px;
             font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.3s ease, background 0.3s;
+        }
+
+        .element:hover {
+            transform: scale(1.1);
+            background: rgba(255,255,255,0.25);
         }
 
         .message {
@@ -106,7 +113,6 @@
             opacity: 0.7;
         }
 
-        /* MOBİL ÖZEL */
         @media (max-width: 600px) {
             h1 { font-size: 1.6rem; }
             h2 { font-size: 1rem; }
@@ -117,52 +123,35 @@
             footer { font-size: 0.8rem; }
         }
 
-        /* KENAR BUTONU VE PANEL */
-        #sideButton {
+        /* FOTO PANEL (Su elementine tıklandığında) */
+        #photoPanel {
             position: fixed;
-            right: 0;
             top: 50%;
-            transform: translateY(-50%);
-            background: #ff6f61;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 8px 0 0 8px;
-            cursor: pointer;
-            z-index: 1000;
-            font-size: 20px;
-            transition: background 0.3s;
-        }
-
-        #sideButton:hover {
-            background: #ff3b2f;
-        }
-
-        #sidePanel {
-            position: fixed;
-            right: -300px;
-            top: 0;
-            width: 300px;
-            height: 100%;
-            background: rgba(20,20,20,0.95);
-            box-shadow: -2px 0 10px rgba(0,0,0,0.5);
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.9);
             padding: 20px;
-            transition: right 0.3s;
-            z-index: 999;
+            border-radius: 15px;
+            display: none;
+            z-index: 1000;
+            max-width: 90%;
+            max-height: 80%;
+            box-shadow: 0 0 20px rgba(0,0,0,0.7);
+            text-align: center;
         }
 
-        #sidePanel img {
-            margin-top: 20px;
+        #photoPanel img {
             width: 100%;
             border-radius: 15px;
         }
 
-        #closeBtn {
+        #closePhoto {
             position: absolute;
             top: 10px;
             right: 15px;
             font-size: 24px;
-            cursor: pointer;
             color: white;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -181,7 +170,7 @@
     </header>
 
     <section class="elements">
-        <div class="element">🌊 Su</div>
+        <div class="element" id="water">🌊 Su</div>
         <div class="element">🔥 Ateş</div>
         <div class="element">🌪️ Hava</div>
         <div class="element">🌱 Toprak</div>
@@ -205,26 +194,32 @@
          Avatarın Yunus ✨
     </footer>
 
-    <!-- KENAR BUTONU VE PANEL -->
-    <div id="sideButton">📸</div>
-
-    <div id="sidePanel">
-        <span id="closeBtn">&times;</span>
-        <h3>Bizim Fotoğraf</h3>
+    <!-- FOTO PANEL -->
+    <div id="photoPanel">
+        <span id="closePhoto">&times;</span>
         <img src="images/azra_ben.png" alt="Biz">
     </div>
 
     <script>
-        const sideButton = document.getElementById('sideButton');
-        const sidePanel = document.getElementById('sidePanel');
-        const closeBtn = document.getElementById('closeBtn');
+        const water = document.getElementById('water');
+        const photoPanel = document.getElementById('photoPanel');
+        const closePhoto = document.getElementById('closePhoto');
 
-        sideButton.onclick = () => {
-            sidePanel.style.right = '0';
+        // Su elementine tıklayınca fotoğraf aç
+        water.onclick = () => {
+            photoPanel.style.display = 'block';
         }
 
-        closeBtn.onclick = () => {
-            sidePanel.style.right = '-300px';
+        // Çarpıya basınca paneli kapat
+        closePhoto.onclick = () => {
+            photoPanel.style.display = 'none';
+        }
+
+        // Panel dışına tıklayınca paneli kapat
+        window.onclick = (e) => {
+            if(e.target == photoPanel){
+                photoPanel.style.display = 'none';
+            }
         }
     </script>
 
